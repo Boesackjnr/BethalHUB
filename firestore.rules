@@ -1,0 +1,93 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    // 0. Global safety net
+    match /{document=**} {
+      allow read, write: if false;
+    }
+
+    // --- Helpers ---
+    function isSignedIn() {
+      return request.auth != null;
+    }
+
+    function isOwner(userId) {
+      return isSignedIn() && request.auth.uid == userId;
+    }
+
+    function getUserData(uid) {
+      return get(/databases/$(database)/documents/users/$(uid)).data;
+    }
+
+    function isAdmin() {
+      return isSignedIn() && exists(/databases/$(database)/documents/users/$(request.auth.uid)) 
+             && getUserData(request.auth.uid).role == 'admin';
+    }
+
+    function isVerified() {
+      return isSignedIn() && exists(/databases/$(database)/documents/users/$(request.auth.uid))
+             && getUserData(request.auth.uid).isVerified == true;
+    }
+
+    function isVerifiedBusiness() {
+      return isVerified() && getUserData(request.auth.uid).role == 'business';
+    }
+
+    function incoming() {
+      return request.resource.data;
+    }
+
+    function existing() {
+      return resource.data;
+    }
+
+    // --- Collections ---
+
+    // User profiles
+    match /users/{userId} {
+      function isValidUser(data) {
+        return data.uid == request.auth.uid
+               && data.role in ['individual', 'business', 'admin'];
+      }
+
+      allow get, list: if true;
+      
+      allow create: if isOwner(userId) && isValidUser(incoming()) 
+                    && (incoming().role != 'admin' || request.auth.token.email.lower() == 'boesackjnr@gmail.com');
+      allow update: if (isOwner(userId) || isAdmin()) 
+                    && (isAdmin() || (incoming().role == existing().role))
+                    && (isAdmin() || !incoming().diff(existing()).affectedKeys().hasAny(['role', 'isVerified', 'uid', 'email']));
+      allow delete: if isOwner(userId) || isAdmin();
+    }
+
+    // Opportunities
+    match /opportunities/{opportunityId} {
+      allow get, list: if true;
+      allow create: if isVerifiedBusiness() || isAdmin();
+      allow update: if (isSignedIn() && existing().authorId == request.auth.uid) || isAdmin();
+      allow delete: if (isSignedIn() && existing().authorId == request.auth.uid) || isAdmin();
+    }
+
+    // Businesses
+    match /businesses/{businessId} {
+      allow get, list: if true;
+      allow create: if isSignedIn();
+      allow update: if (isSignedIn() && (existing().ownerId == request.auth.uid || isAdmin()));
+      allow delete: if isAdmin();
+    }
+
+    // Community Notices
+    match /notices/{noticeId} {
+      allow get, list: if true;
+      allow create: if isVerified() || isAdmin();
+      allow update: if (isSignedIn() && (existing().authorId == request.auth.uid)) || isAdmin();
+      allow delete: if (isSignedIn() && (existing().authorId == request.auth.uid)) || isAdmin();
+    }
+
+    // Connection test document
+    match /test/connection {
+      allow get, list: if true;
+      allow write: if isAdmin();
+    }
+  }
+}

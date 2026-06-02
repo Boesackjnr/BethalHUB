@@ -1,0 +1,12 @@
+{
+  "name": "BethalHUB - TestVersion",
+  "description": "Bethal's Digital Opportunities Hub - A community platform for tenders, jobs, learnerships, and local business services.",
+  "requestFramePermissions": [
+    "geolocation"
+  ],
+  "majorCapabilities": [
+    "Firebase Authentication",
+    "Firestore Database",
+    "Real-time Updates"
+  ]
+}

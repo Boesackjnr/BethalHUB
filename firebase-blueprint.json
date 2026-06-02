@@ -1,0 +1,98 @@
+{
+  "entities": {
+    "User": {
+      "title": "User Profile",
+      "description": "Details for a registered user",
+      "type": "object",
+      "properties": {
+        "uid": { "type": "string" },
+        "email": { "type": "string" },
+        "displayName": { "type": "string" },
+        "role": { "type": "string", "enum": ["individual", "business", "admin"] },
+        "isVerified": { "type": "boolean" },
+        "businessId": { "type": "string" },
+        "bio": { "type": "string" },
+        "phoneNumber": { "type": "string" },
+        "location": { "type": "string" },
+        "avatarUrl": { "type": "string" },
+        "createdAt": { "type": "string", "format": "date-time" },
+        "updatedAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["uid", "email", "role", "isVerified"]
+    },
+    "Opportunity": {
+      "title": "Opportunity",
+      "description": "Job, tender, learnership, or RFQ listing",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "title": { "type": "string" },
+        "organization": { "type": "string" },
+        "description": { "type": "string" },
+        "category": { "type": "string", "enum": ["Tender", "RFQ", "Job", "Learnership", "Internship", "Community Project", "Training"] },
+        "deadline": { "type": "string", "format": "date-time" },
+        "location": { "type": "string" },
+        "contactDetails": { "type": "string" },
+        "attachmentUrl": { "type": "string" },
+        "createdAt": { "type": "string", "format": "date-time" },
+        "updatedAt": { "type": "string", "format": "date-time" },
+        "status": { "type": "string", "enum": ["open", "closed", "draft"] },
+        "authorId": { "type": "string" },
+        "businessId": { "type": "string" }
+      },
+      "required": ["title", "organization", "category", "deadline", "status", "authorId"]
+    },
+    "Business": {
+      "title": "Business Profile",
+      "description": "Local business details",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "name": { "type": "string" },
+        "logoUrl": { "type": "string" },
+        "description": { "type": "string" },
+        "category": { "type": "string" },
+        "website": { "type": "string" },
+        "social": { "type": "object" },
+        "location": { "type": "string" },
+        "contact": { "type": "string" },
+        "verified": { "type": "boolean" },
+        "ownerId": { "type": "string" }
+      },
+      "required": ["name", "category", "ownerId"]
+    },
+    "Notice": {
+      "title": "Community Notice",
+      "description": "Municipal or community update",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "title": { "type": "string" },
+        "content": { "type": "string" },
+        "type": { "type": "string", "enum": ["Municipal", "Water/Electricity", "Announcement", "Event", "Public Update"] },
+        "createdAt": { "type": "string", "format": "date-time" },
+        "priority": { "type": "string", "enum": ["low", "medium", "high", "urgent"] },
+        "authorId": { "type": "string" }
+      },
+      "required": ["title", "content", "type", "priority", "authorId"]
+    }
+  },
+  "firestore": {
+    "/users/{userId}": {
+      "schema": "User",
+      "description": "User profiles"
+    },
+    "/opportunities/{opportunityId}": {
+      "schema": "Opportunity",
+      "description": "Opportunity listings"
+    },
+    "/businesses/{businessId}": {
+      "schema": "Business",
+      "description": "Local business directory"
+    },
+    "/notices/{noticeId}": {
+      "schema": "Notice",
+      "description": "Community notices and updates"
+    }
+  }
+}
