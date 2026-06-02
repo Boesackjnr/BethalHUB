@@ -5,7 +5,7 @@
 use the following account details to log in. do not enter any of your personal details to the site, remember this is a test version (prototype), and is not fully
 live and operational yet. god bless!!.
 
-emai: Test123@gmail.com
+email: Test123@gmail.com
 password: t12345678
 
 ---
