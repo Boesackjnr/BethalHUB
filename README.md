@@ -1,6 +1,12 @@
 # 🛡️ BETHALHUB
 
-**BethalHUB** is a highly polished, robust, and modern digital hub designed for the community of Bethal, Mpumalanga. The platform serves as a central clearinghouse where residents discover tenders, jobs, learnerships, and local community updates, while verified regional businesses list their credentials to foster trustworthy localized commerce.
+**BethalHUB** 
+
+use the following account details to log in. do not enter any of your personal details to the site, remember this is a test version (prototype), and is not fully
+live and operational yet. god bless!!.
+
+emai: Test123@gmail.com
+password: t12345678
 
 ---
 
