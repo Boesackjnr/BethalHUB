@@ -1,7 +1,7 @@
 
 **BethalHUB** 
 
-use the following account details to log in. do not enter any of your personal details/information to the site, remember this is a test version (prototype), and is not fully
+use the following account details to log in. do not enter any of your personal details/information to the site, remember this is a TEST version (prototype), and is not fully
 live and operational yet. god bless!!.
 
 email: Test123@gmail.com
