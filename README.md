@@ -144,7 +144,3 @@ Creates a hyper-compact, static asset bundle within the `/dist` directory.
 
 ---
 
-## 📞 Portal Information & Contacts
-BethalHUB's opportunities management services and updates operate directly via the coordinate desk:
-*   **Administrative Center**: `3905 Ext 4 Musa Street, Bethal West, Mpumalanga, 2310`
-*   **Emergency Portal**: Dynamic channels are verified and monitored 24/7 for our trusted Business Partners.
