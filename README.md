@@ -1,5 +1,3 @@
-Do Not Log-in or Create an Account/s!.
-
 ## ✨ Features & Architecture
 
 BethalHUB utilizes a full-stack, client-first structure powered by **React 19**, **TypeScript**, **Vite**, **Tailwind CSS v4**, and **Firebase** (Firestore & Auth).
